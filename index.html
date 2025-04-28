@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KeyGO API Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: #ffffff;
+        dark: bg-gray-800;
+      }
+      .endpoint-card {
+        transition: all 0.3s ease;
+      }
+      .endpoint-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+      .code-block {
+        background-color: #1a1a1a;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        font-family: "JetBrains Mono", monospace;
+        color: #e2e8f0;
+      }
+      .dark .code-block {
+        background-color: #2d3748;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300"
+  >
+    <!-- Navbar -->
+    <nav class="navbar shadow-lg px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <h1 class="text-2xl font-bold">KeyGO API</h1>
+      </div>
+      <ul class="flex space-x-6">
+        <li>
+          <a
+            href="#introduction"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+            >Introduction</a
+          >
+        </li>
+        <li>
+          <a
+            href="#authentication"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+            >Authentication</a
+          >
+        </li>
+        <li>
+          <a
+            href="#endpoints"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+            >Endpoints</a
+          >
+        </li>
+        <li>
+          <a
+            href="#schemas"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+            >Schemas</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="p-8 max-w-5xl mx-auto">
+      <!-- Introduction -->
+      <section id="introduction" class="mb-12">
+        <h2 class="text-3xl font-bold mb-4">Introduction</h2>
+        <p class="text-gray-600 dark:text-gray-300">
+          Welcome to the KeyGO API documentation. This API provides endpoints
+          for managing accounts, cars, rentals, favorites, and reviews for a car
+          rental service. It follows RESTful principles and uses JWT for
+          authentication.
+        </p>
+      </section>
+
+      <!-- Authentication -->
+      <section id="authentication" class="mb-12">
+        <h2 class="text-3xl font-bold mb-4">Authentication</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-4">
+          The API uses Bearer token authentication. Include a valid JWT in the
+          Authorization header:
+        </p>
+        <div class="code-block">Authorization: Bearer {your-token}</div>
+      </section>
+
+      <!-- Endpoints -->
+      <section id="endpoints" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6">Endpoints</h2>
+
+        <!-- Account Endpoints -->
+        <h3 class="text-2xl font-semibold mb-4">Account</h3>
+        <div class="grid gap-6">
+          <!-- Login -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/account/login
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Authenticates a user and returns a JWT token.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "username": "string", "password": "string" }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Successful login</p>
+            </div>
+          </div>
+
+          <!-- Register -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/account/register
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Registers a new user.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "username": "string", "emailAddress": "string", "password":
+                "string" }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Successful registration</p>
+            </div>
+          </div>
+
+          <!-- Assign Role -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/account/assign-role
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Assigns a role to a user.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "username": "string", "role": "string" }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Role assigned successfully</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car Endpoints -->
+        <h3 class="text-2xl font-semibold mb-4 mt-8">Car</h3>
+        <div class="grid gap-6">
+          <!-- Get Cars -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/car
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves a list of cars with optional filters.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Query Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>carMake</code>: string (optional)</li>
+                <li><code>carModel</code>: string (optional)</li>
+                <li><code>IsAvailable</code>: boolean (optional)</li>
+                <li><code>Year</code>: integer (optional)</li>
+                <li><code>Minprice</code>: integer (optional)</li>
+                <li><code>Maxprice</code>: integer (optional)</li>
+                <li><code>isDescending</code>: boolean (optional)</li>
+                <li><code>PageNumber</code>: integer (optional)</li>
+                <li><code>Pagesize</code>: integer (optional)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: List of cars</p>
+            </div>
+          </div>
+
+          <!-- Create Car -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/car
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Creates a new car entry.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "make": "string", "model": "string", "year": 0, "pricePerDay":
+                0, "isAvailable": true }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car created successfully</p>
+            </div>
+          </div>
+
+          <!-- Get Car by ID -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/car/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves a car by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car details</p>
+            </div>
+          </div>
+
+          <!-- Update Car -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              PUT /api/car/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Updates a car by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "make": "string", "model": "string", "year": 0, "pricePerDay":
+                0, "isAvailable": true }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car updated successfully</p>
+            </div>
+          </div>
+
+          <!-- Patch Car -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              PATCH /api/car/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Partially updates a car by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "make": "string", "model": "string", "year": 0, "pricePerDay":
+                0, "isAvailable": true }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car patched successfully</p>
+            </div>
+          </div>
+
+          <!-- Delete Car -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              DELETE /api/car/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Deletes a car by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car deleted successfully</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Favorites Endpoints -->
+        <h3 class="text-2xl font-semibold mb-4 mt-8">Favorites</h3>
+        <div class="grid gap-6">
+          <!-- Get Favorites -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/favorites
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves a list of favorite cars.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: List of favorite cars</p>
+            </div>
+          </div>
+
+          <!-- Add Favorite -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/favorites
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Adds a car to favorites.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Query Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (optional)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car added to favorites</p>
+            </div>
+          </div>
+
+          <!-- Remove Favorite -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              DELETE /api/favorites/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Removes a car from favorites.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Car removed from favorites</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rental Endpoints -->
+        <h3 class="text-2xl font-semibold mb-4 mt-8">Rental</h3>
+        <div class="grid gap-6">
+          <!-- Get Rentals -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/rental
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves a list of rentals with optional filters.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Query Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>userId</code>: string (optional)</li>
+                <li><code>carId</code>: integer (optional)</li>
+                <li><code>isReturned</code>: boolean (optional)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: List of rentals</p>
+            </div>
+          </div>
+
+          <!-- Get Rental by ID -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/rental/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves a rental by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Rental details</p>
+            </div>
+          </div>
+
+          <!-- Rent Car -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/rental/rent
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Creates a new car rental.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "carId": 0, "userId": "string", "startDate":
+                "2025-04-28T12:00:00Z", "endDate": "2025-04-30T12:00:00Z" }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Rental created successfully</p>
+            </div>
+          </div>
+
+          <!-- Return Car -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/rental/return/{rentalId}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Marks a rental as returned.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>rentalId</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Rental returned successfully</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Endpoints -->
+        <h3 class="text-2xl font-semibold mb-4 mt-8">Review</h3>
+        <div class="grid gap-6">
+          <!-- Get Reviews -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/review
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves a list of reviews with optional filters.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Query Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>carId</code>: integer (optional)</li>
+                <li><code>isDescending</code>: boolean (optional)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: List of reviews</p>
+            </div>
+          </div>
+
+          <!-- Get Reviews by Car ID -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              GET /api/review/{carId}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Retrieves reviews for a specific car.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>carId</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: List of reviews for the car</p>
+            </div>
+          </div>
+
+          <!-- Create Review -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              POST /api/review/{carId}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Creates a review for a car.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>carId</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "title": "string", "content": "string" }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Review created successfully</p>
+            </div>
+          </div>
+
+          <!-- Update Review -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              PUT /api/review/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Updates a review by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Request Body</h5>
+              <div class="code-block">
+                { "title": "string", "content": "string" }
+              </div>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Review updated successfully</p>
+            </div>
+          </div>
+
+          <!-- Delete Review -->
+          <div
+            class="endpoint-card bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg"
+          >
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              DELETE /api/review/{id}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-300 mt-2">
+              Deletes a review by its ID.
+            </p>
+            <div class="mt-4">
+              <h5 class="font-semibold">Path Parameters</h5>
+              <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300">
+                <li><code>id</code>: integer (required)</li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <h5 class="font-semibold">Responses</h5>
+              <p><code>200</code>: Review deleted successfully</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Schemas -->
+      <section id="schemas" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6">Schemas</h2>
+        <div class="grid gap-6">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              AssignRoleDto
+            </h4>
+            <div class="code-block mt-4">
+              { "username": "string", "role": "string" }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              CreateCarRequestDto
+            </h4>
+            <div class="code-block mt-4">
+              { "make": "string", "model": "string", "year": 0, "pricePerDay":
+              0, "isAvailable": true }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              CreateReviewDto
+            </h4>
+            <div class="code-block mt-4">
+              { "title": "string", "content": "string" }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              LoginDto
+            </h4>
+            <div class="code-block mt-4">
+              { "username": "string", "password": "string" }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              PatchCarRequestDto
+            </h4>
+            <div class="code-block mt-4">
+              { "make": "string", "model": "string", "year": 0, "pricePerDay":
+              0, "isAvailable": true }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              RegisterDto
+            </h4>
+            <div class="code-block mt-4">
+              { "username": "string", "emailAddress": "string", "password":
+              "string" }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              RentCarRequestDto
+            </h4>
+            <div class="code-block mt-4">
+              { "carId": 0, "userId": "string", "startDate":
+              "2025-04-28T12:00:00Z", "endDate": "2025-04-30T12:00:00Z" }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              UpdateCarRequestDto
+            </h4>
+            <div class="code-block mt-4">
+              { "make": "string", "model": "string", "year": 0, "pricePerDay":
+              0, "isAvailable": true }
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              UpdateReviewRequestDto
+            </h4>
+            <div class="code-block mt-4">
+              { "title": "string", "content": "string" }
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
